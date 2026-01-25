@@ -1,0 +1,17 @@
+version : "3.2"
+
+services:
+  mock-service:
+    image : shubhamgupta95/python_mock_service:V0.0
+    container_name: test-mock-service
+    ports:
+      - 5000:5000
+
+  mock-service-test:
+    image: python:3.12-slim
+    container_name: test-mock-service-execution
+    volumes:
+      - ./:/app/tests
+    command: sh -c "pip3 install --no-cache-dir -r /app/tests/requirements.txt && pytest /app/tests/test_mock.py -sv"
+    depends_on:
+      - mock-service
