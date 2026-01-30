@@ -12,6 +12,7 @@ services:
     container_name: test-mock-service-execution
     volumes:
       - ./:/app/tests
-    command: sh -c "pip3 install --no-cache-dir -r /app/tests/requirements.txt && pytest /app/tests/test_mock.py -sv"
+      - ./reports:/app/tests/reports
+    command: sh -c "pip3 install --no-cache-dir -r /app/tests/requirements.txt && pytest /app/tests/test_mock.py -v --html=/app/tests/reports/report.html --self-contained-html"
     depends_on:
       - mock-service
