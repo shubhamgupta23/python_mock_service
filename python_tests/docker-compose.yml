@@ -2,7 +2,7 @@ version : "3.2"
 
 services:
   mock-service:
-    image : shubhamgupta95/python_mock_service:V0.0
+    image : shubhamgupta95/python_mock_service:V0.1
     container_name: test-mock-service
     ports:
       - 5000:5000
@@ -15,4 +15,5 @@ services:
       - ./reports:/app/tests/reports
     command: sh -c "pip3 install --no-cache-dir -r /app/tests/requirements.txt && pytest /app/tests/test_mock.py -v --html=/app/tests/reports/report.html --self-contained-html"
     depends_on:
-      - mock-service
+      mock-service:
+          condition: service_healthy
